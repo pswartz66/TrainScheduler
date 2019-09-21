@@ -1,17 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <!-- Added a link to our external stylesheet-->
+    <link rel="stylesheet" href="css/reset.css">
+
+    <!-- Link to Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- Added a link to our css file -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
     <title>TrainScheduler</title>
 </head>
+
 <body>
 
-    
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="jumbo-container">
+                <h1 class="display-4">Welcome to Train Scheduler</h1>
+                <p class="lead">See below for a list of upcoming trains</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <!-- <div class="card-body"> -->
+                <h3 class="card-header">Current Train Schedule</h3>
+                <table class="table">
+                    <thead>
+                        <th id="train-name" class="table-head" scope="col">Train Name</th>
+                        <th id="destination" class="table-head" scope="col">Destination</th>
+                        <th id="frequency" class="table-head" scope="col">Frequency (min)</th>
+                        <th id="next-arrival" class="table-head" scope="col">Next Arrival</th>
+                        <th id="minutes-away" class="table-head" scope="col">Minutes Away</th>
+                    </thead>
+                </table>
+
+            <!-- </div> -->
+
+        </div>
 
 
 
-    
+    </div>
+
+
+
+
+
+    <!-- Firebase References -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <!-- Link to Moment.js -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+
+
 </body>
+
 </html>
