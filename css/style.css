@@ -31,6 +31,10 @@ h3 {
     font-weight: 400;
 }
 
+#table-row {
+    text-align: center;
+}
+
 .jumbotron {
     background-color: rgb(29, 120, 194);
     color: ghostwhite;
@@ -41,6 +45,7 @@ h3 {
 
 .form-control {
     margin-bottom: 14px;
+
 }
 
 label {
@@ -51,3 +56,9 @@ label {
     background-color: rgb(29, 120, 194); 
     border: none;
 }
+
+#submit-btn:hover {
+    background-color: rgb(124, 167, 202);
+    box-shadow: 1px 1px 3px rgb(29, 120, 194);
+}
+
