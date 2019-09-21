@@ -19,6 +19,25 @@ $('#submit-btn').on('click', function () {
     console.log(frequency);
 
     
+    var myRow = $('<tr>');
+
+    $('.table-body').prepend(myRow);
+
+    myRow.append('<td>' + train_name + '</td>');
+    myRow.append('<td>' + destination + '</td>');
+    myRow.append('<td>' + frequency + '</td>');
+
+    // table rows require calculations
+    myRow.append('<td>' + frequency + '</td>');
+    myRow.append('<td>' + frequency + '</td>');
+
+
+
+
+
+
+
+
 
 
     // reset input box values back to their original state
