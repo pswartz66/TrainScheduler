@@ -19,7 +19,6 @@
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-
     <title>TrainScheduler</title>
 </head>
 
@@ -35,20 +34,20 @@
 
         <div class="card">
             <!-- <div class="card-body"> -->
-                <h3 class="card-header">Current Train Schedule</h3>
-                <table class="table">
-                    <thead>
-                        <th id="train-name" class="table-head" scope="col">Train Name</th>
-                        <th id="destination" class="table-head" scope="col">Destination</th>
-                        <th id="frequency" class="table-head" scope="col">Frequency (min)</th>
-                        <th id="next-arrival" class="table-head" scope="col">Next Arrival</th>
-                        <th id="minutes-away" class="table-head" scope="col">Minutes Away</th>
-                    </thead>
+            <h3 class="card-header">Current Train Schedule</h3>
+            <table class="table">
+                <thead>
+                    <th id="train-name" class="table-head" scope="col">Train Name</th>
+                    <th id="destination" class="table-head" scope="col">Destination</th>
+                    <th id="frequency" class="table-head" scope="col">Frequency (min)</th>
+                    <th id="next-arrival" class="table-head" scope="col">Next Arrival</th>
+                    <th id="minutes-away" class="table-head" scope="col">Minutes Away</th>
+                </thead>
 
-                    <tbody class="table-body">
+                <tbody class="table-body">
 
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
 
             <!-- </div> -->
 
@@ -62,23 +61,25 @@
                     <input class="form-control" id="train-name-input" type="text" placeholder="Enter a train name">
 
                     <label>Destination</label>
-                    <input class="form-control" id="destination-input" type="text" placeholder="Enter travel destination">
+                    <input class="form-control" id="destination-input" type="text"
+                        placeholder="Enter travel destination">
 
                     <label>First Train Time (HH:mm - military time)</label>
                     <input class="form-control" id="first-train-time-input" type="text" placeholder="Enter train time">
 
                     <label>Frequency (min)</label>
-                    <input class="form-control" id="frequency-input" type="text" placeholder="Enter the frequency in minutes">
+                    <input class="form-control" id="frequency-input" type="text"
+                        placeholder="Enter the frequency in minutes">
 
                     <button type="submit" class="btn btn-success success-btn" id="submit-btn">
-                    
+
                         <i class=""></i>Submit</button>
 
 
                 </div>
             </form>
-            
-    
+
+
         </div>
 
 
