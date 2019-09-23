@@ -113,7 +113,7 @@ $('.refresh-times').on('click', function () {
 
             var currentTimeUnix = currentTime.format("X");
 
-            if (currentTimeUnix > childSnapShot.val().tNextArrival) {
+            /* if (currentTimeUnix > childSnapShot.val().tNextArrival) {
                 console.log('change time!!!!')
 
 
@@ -182,7 +182,7 @@ $('.refresh-times').on('click', function () {
                 myRow.append('<td>' + cnvrtNextArrivalTime + '</td>');
                 myRow.append('<td>' + minutesTillNextTrain_DB + '</td>');
 
-            }
+            }  */
 
 
 
