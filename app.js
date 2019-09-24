@@ -17,7 +17,7 @@ firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
 // reference to the main train schedule top node
-var trainSchedule = database.ref('trainschedule-df04d');
+var trainSchedule = database.ref('/trainschedule');
 
 
 
@@ -77,7 +77,7 @@ $('#submit-btn').on('click', function () {
     };
 
     // push data to the database
-    database.ref().push(myTrain);
+    database.ref(trainSchedule).push(myTrain);
 
 
     // reset input box values back to their original state
@@ -100,91 +100,31 @@ $('#submit-btn').on('click', function () {
 $('.refresh-times').on('click', function () {
     event.preventDefault();
 
-
-
-    database.ref().on('value', function (snapshot) {
+    database.ref(trainSchedule).on('value', function (snapshot) {
 
         snapshot.forEach(function (childSnapShot) {
 
 
+            var newArrival = moment().add(parseInt(childSnapShot.val().tFrequency), 'minutes');
 
-            var currentTime = moment();
-            // console.log(moment(currentTime).format('HH:mm'));
+            console.log(newArrival);
 
-            var currentTimeUnix = currentTime.format("X");
+            var newArrivalUnix = newArrival.format("X");
 
-            /* if (currentTimeUnix > childSnapShot.val().tNextArrival) {
-                console.log('change time!!!!')
+            
+            //console.log(childSnapShot.val().tNextArrival + newArrivalUnix);
 
+            
 
+            trainSchedule.child(childSnapShot.key).update({'tNextArrival': newArrivalUnix});
 
-                // do math here
-                var firstTimeConverted = moment(childSnapShot.val().tFirstTrainTime, 'HH:mm').subtract(1, 'years');
-                // console.log(firstTimeConverted);
+            var newArrivalUnix_DB = childSnapShot.val().tNextArrival;
 
-                var firstTimeConvertedUnix = firstTimeConverted.format("X");
+            var cnvrtNewArrivalUnix = moment.unix(newArrivalUnix_DB).format("HH:mm");
 
+            //console.log(cnvrtNewArrivalUnix);
 
-                var currentTime = moment();
-                console.log(moment(currentTime).format('HH:mm'));
-
-                var currentTimeUnix = currentTime.format("X");
-
-                var timeDiff = moment().diff(moment(firstTimeConverted), 'minutes');
-                // console.log('time diff ' + timeDiff);
-
-                var timeApart = timeDiff % childSnapShot.val().tFrequency;
-                // console.log('time apart ' + timeApart + ' minutes');
-
-                var minutesTillNextTrain = childSnapShot.val().tFrequency - timeApart;
-                // console.log('minutes until next train ' + minutesTillNextTrain)
-
-                var nextArrival = moment().add(parseInt(childSnapShot.val().tMinutesAway), 'minutes');
-                // console.log('ARRIVAL TIME ' + moment(nextArrival).format('HH:mm'));
-                var nextArrivalUnix = nextArrival.format("X");
-
-                // create an object to be added to our database
-                var myTrain = {
-                    tFirstTrainTime: firstTimeConvertedUnix,
-                    tNextArrival: nextArrivalUnix,
-                    // tMinutesAway: minutesTillNextTrain,
-                    tCurrentTimeUnix: currentTimeUnix
-
-                };
-
-                // push data to the database
-                database.ref().push(myTrain);
-
-
-
-
-                // create variables to target database object
-                var train_name_DB = childSnapShot.val().tName;
-                var destination_DB = childSnapShot.val().tDestination;
-                var frequency_DB = childSnapShot.val().tFrequency;
-                var nextArrivalUnix_DB = childSnapShot.val().tNextArrival;
-                var minutesTillNextTrain_DB = childSnapShot.val().tMinutesAway;
-
-                // convert unix database time back to military
-                var cnvrtNextArrivalTime = moment.unix(nextArrivalUnix_DB).format("HH:mm");
-
-
-                // add row with new data
-                var myRow = $('<tr>');
-
-                $('.table-body').prepend(myRow);
-
-                myRow.append('<td>' + train_name_DB + '</td>');
-                myRow.append('<td>' + destination_DB + '</td>');
-                myRow.append('<td>' + frequency_DB + '</td>');
-
-                // table rows require calculations
-                myRow.append('<td>' + cnvrtNextArrivalTime + '</td>');
-                myRow.append('<td>' + minutesTillNextTrain_DB + '</td>');
-
-            }  */
-
-
+            $('.updateTimes').text(cnvrtNewArrivalUnix);
 
 
         });
@@ -201,7 +141,7 @@ $('.refresh-times').on('click', function () {
 
 // database functionality
 
-database.ref().on("child_added", function (childSnapShot) {
+database.ref(trainSchedule).on("child_added", function (childSnapShot) {
 
     // log the childSnapShot
     console.log(childSnapShot.val());
@@ -227,7 +167,7 @@ database.ref().on("child_added", function (childSnapShot) {
     myRow.append('<td>' + frequency_DB + '</td>');
 
     // table rows require calculations
-    myRow.append('<td>' + cnvrtNextArrivalTime + '</td>');
+    myRow.append('<td class="updateTimes">' + cnvrtNextArrivalTime + '</td>');
     myRow.append('<td>' + minutesTillNextTrain_DB + '</td>');
 
 
