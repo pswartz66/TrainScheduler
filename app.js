@@ -100,7 +100,11 @@ $('#submit-btn').on('click', function () {
 $('.refresh-times').on('click', function () {
     event.preventDefault();
 
+    
+
     database.ref(trainSchedule).on('value', function (snapshot) {
+
+        document.location.reload();
 
         snapshot.forEach(function (childSnapShot) {
 
@@ -124,10 +128,12 @@ $('.refresh-times').on('click', function () {
 
             //console.log(cnvrtNewArrivalUnix);
 
-            $('.updateTimes').text(cnvrtNewArrivalUnix);
+            
 
 
         });
+
+        $('.updateTimes').text(cnvrtNewArrivalUnix);
 
     });
 
