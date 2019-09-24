@@ -119,6 +119,10 @@ $('.refresh-times').on('click', function () {
             //console.log(childSnapShot.val().tNextArrival + newArrivalUnix);
 
             
+            // currently the app only adds the same frequency
+            // when I refresh the page we should see the "TIME LEFT" until
+            // the next Arrival time
+
 
             trainSchedule.child(childSnapShot.key).update({'tNextArrival': newArrivalUnix});
 
