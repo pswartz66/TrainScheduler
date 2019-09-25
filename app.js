@@ -100,22 +100,59 @@ $('#submit-btn').on('click', function () {
 $('.refresh-times').on('click', function () {
     event.preventDefault();
 
-    
+    var currentTime = moment();
+    console.log(currentTime);
 
+    var currentTimeUnix = currentTime.format("X");
+    
     database.ref(trainSchedule).on('value', function (snapshot) {
 
-        document.location.reload();
+        // document.location.reload();
 
         snapshot.forEach(function (childSnapShot) {
 
 
-            var newArrival = moment().add(parseInt(childSnapShot.val().tFrequency), 'minutes');
+            if ((childSnapShot.val().tNextArrival - currentTimeUnix) < 0) {
 
-            console.log(newArrival);
+                var newArrival = moment().add(parseInt(childSnapShot.val().tFrequency), 'minutes');
+    
+                var newArrivalUnix = newArrival.format("X");
 
-            var newArrivalUnix = newArrival.format("X");
+                trainSchedule.child(childSnapShot.key).update({'tNextArrival': newArrivalUnix});
 
-            
+                var newArrivalUnix_DB = childSnapShot.val().tNextArrival;
+
+                var cnvrtNewArrivalUnix = moment.unix(newArrivalUnix_DB).format("HH:mm");
+
+                // console.log(cnvrtNewArrivalUnix);
+
+                $('.updateTimes').text(cnvrtNewArrivalUnix);
+
+
+                trainSchedule.child(childSnapShot.key).update({'tMinutesAway': childSnapShot.val().tFrequency});
+
+
+                
+
+            } else {
+
+                console.log('time > 0');
+
+                var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
+                
+                console.log(minTilNextTrain);
+                
+                var timeDiff = moment().diff(moment(minTilNextTrain, 'minutes'));
+                
+                var timeDiffUnix = moment.unix(timeDiff).format("HH:mm");
+
+
+                $('.minTilTrain').text(timeDiffUnix);
+
+            }
+
+
+
             //console.log(childSnapShot.val().tNextArrival + newArrivalUnix);
 
             
@@ -123,21 +160,12 @@ $('.refresh-times').on('click', function () {
             // when I refresh the page we should see the "TIME LEFT" until
             // the next Arrival time
 
-
-            trainSchedule.child(childSnapShot.key).update({'tNextArrival': newArrivalUnix});
-
-            var newArrivalUnix_DB = childSnapShot.val().tNextArrival;
-
-            var cnvrtNewArrivalUnix = moment.unix(newArrivalUnix_DB).format("HH:mm");
-
-            //console.log(cnvrtNewArrivalUnix);
-
-            
+            var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
+            console.log(minTilNextTrain);
 
 
         });
 
-        $('.updateTimes').text(cnvrtNewArrivalUnix);
 
     });
 
@@ -178,7 +206,7 @@ database.ref(trainSchedule).on("child_added", function (childSnapShot) {
 
     // table rows require calculations
     myRow.append('<td class="updateTimes">' + cnvrtNextArrivalTime + '</td>');
-    myRow.append('<td>' + minutesTillNextTrain_DB + '</td>');
+    myRow.append('<td class="minTilTrain">' + minutesTillNextTrain_DB + '</td>');
 
 
 
