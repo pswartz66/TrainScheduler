@@ -128,7 +128,6 @@ $('.refresh-times').on('click', function () {
 
                 $('.updateTimes').text(cnvrtNewArrivalUnix);
 
-
                 trainSchedule.child(childSnapShot.key).update({'tMinutesAway': childSnapShot.val().tFrequency});
                 
                 $('.minTilTrain').text(childSnapShot.val().tMinutesAway);
@@ -136,6 +135,9 @@ $('.refresh-times').on('click', function () {
 
             } else {
 
+
+                // fix this, the first section of the if statement works correctly
+                
                 console.log('time > 0');
 
                 var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
