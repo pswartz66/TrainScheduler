@@ -130,9 +130,9 @@ $('.refresh-times').on('click', function () {
 
 
                 trainSchedule.child(childSnapShot.key).update({'tMinutesAway': childSnapShot.val().tFrequency});
-
-
                 
+                $('.minTilTrain').text(childSnapShot.val().tMinutesAway);
+
 
             } else {
 
@@ -143,7 +143,7 @@ $('.refresh-times').on('click', function () {
                 console.log(minTilNextTrain);
                 
                 var timeDiff = moment().diff(moment(minTilNextTrain, 'minutes'));
-                
+
                 var timeDiffUnix = moment.unix(timeDiff).format("HH:mm");
 
 
