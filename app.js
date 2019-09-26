@@ -10,8 +10,8 @@ $(document).ready(function () {
         databaseURL: "https://trainschedule-df04d.firebaseio.com",
         projectId: "trainschedule-df04d",
         storageBucket: "",
-        messagingSenderId: "339799422019",
-        appId: "1:339799422019:web:9034f013adb4812da710f6"
+        messagingSenderId: config.messagingSenderId,
+        appId: config.appID
     };
 
     // Initialize Firebase
