@@ -1,8 +1,8 @@
 
+
 $(document).ready(function () {
 
-
-
+    
     // Firebase configuration
     var firebaseConfig = {
         apiKey: config.apiKey,
