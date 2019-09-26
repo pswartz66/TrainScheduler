@@ -1,5 +1,6 @@
 
 
+
 // Firebase configuration
 var firebaseConfig = {
     apiKey: config.apiKey,
@@ -97,17 +98,21 @@ $('#submit-btn').on('click', function () {
 
 
 // refresh train schedules
-$('.refresh-times').on('click', function () {
+$('.refresh-times').on('click', function() {
+
     event.preventDefault();
 
     var currentTime = moment();
-    console.log(currentTime);
+    // console.log(currentTime);
 
     var currentTimeUnix = currentTime.format("X");
     
+    var currentTimeFromDB = moment.unix(currentTimeUnix).format("HH:mm");
+
+    console.log(currentTimeFromDB);
+    
     database.ref(trainSchedule).on('value', function (snapshot) {
 
-        // document.location.reload();
 
         snapshot.forEach(function (childSnapShot) {
 
@@ -140,30 +145,23 @@ $('.refresh-times').on('click', function () {
                 
                 console.log('time > 0');
 
-                var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
+
+                // var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
                 
-                console.log(minTilNextTrain);
+                console.log('Converted Minutes left -------------------');
                 
-                var timeDiff = moment().diff(moment(minTilNextTrain, 'minutes'));
+                var minLeftDiff = childSnapShot.val().tNextArrival - currentTimeUnix;
+                var minLeftDiff_mm = moment.unix(minLeftDiff).format('m');
+                var minLeftDiff_ss = moment.unix(minLeftDiff).format('ss');
 
-                var timeDiffUnix = moment.unix(timeDiff).format("HH:mm");
+
+                console.log(minLeftDiff_mm);
 
 
-                $('.minTilTrain').text(timeDiffUnix);
+                $('.minTilTrain').text(minLeftDiff_mm + 'min '+ minLeftDiff_ss + 'sec');
 
             }
 
-
-
-            //console.log(childSnapShot.val().tNextArrival + newArrivalUnix);
-
-            
-            // currently the app only adds the same frequency
-            // when I refresh the page we should see the "TIME LEFT" until
-            // the next Arrival time
-
-            var minTilNextTrain = moment(childSnapShot.val().tMinutesAway, "HH:mm");
-            console.log(minTilNextTrain);
 
 
         });
@@ -173,7 +171,6 @@ $('.refresh-times').on('click', function () {
 
 
 });
-
 
 
 
@@ -216,6 +213,7 @@ database.ref(trainSchedule).on("child_added", function (childSnapShot) {
 
 
 });
+
 
 
 
