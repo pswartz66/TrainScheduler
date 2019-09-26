@@ -1,17 +1,18 @@
 
+// import { apiKey as _apiKey, messagingSenderId as _messagingSenderId, appID } from './config';
 
 $(document).ready(function () {
 
     
     // Firebase configuration
     var firebaseConfig = {
-        apiKey: config.apiKey,
+        apiKey: "AIzaSyDw0MCF-Lg0y5QVndbGvEHDJC8JvWIJpqw",
         authDomain: "trainschedule-df04d.firebaseapp.com",
         databaseURL: "https://trainschedule-df04d.firebaseio.com",
         projectId: "trainschedule-df04d",
         storageBucket: "",
-        messagingSenderId: config.messagingSenderId,
-        appId: config.appID
+        messagingSenderId: "339799422019",
+        appId: "1:339799422019:web:9034f013adb4812da710f6"
     };
 
     // Initialize Firebase
